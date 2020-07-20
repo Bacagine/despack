@@ -25,10 +25,20 @@ int main(int argc, char **argv){
         else if(argc == 3){
             /* Instala o pacote no sistema */
             if(!strcmp(argv[1], "-i") || !strcmp(argv[1], "--install")){
+                install_process(argv[2]);
+             /* Colocar tudo isso dentro 
+                da função chamada acima
+                ------------------------
+                package pkg;
+                strcpy(pkg.name, argv[2]);
+                pkg.dt_instalacao.dia = ;
+                pkg.dt_instalacao.mes = ;
+                pkg.dt_instalacao.ano = ;
                 download(repository, argv[2]);
                 descompactar(argv[2]);
                 compile();
                 install(argv[2], );
+                cadastrar_pacote(); */
             }
             /* Remove o pacote do sistema */
             else if(!strcmp(argv[1], "-r") || !strcmp(argv[1], "--remove")){
@@ -56,4 +66,3 @@ int main(int argc, char **argv){
         }
     }
 }
-

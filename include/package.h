@@ -14,6 +14,7 @@
 #define _PACKAGE_H
 
 #include <curl/curl.h>
+
 /* Library created by fatec students */
 #include "../include/fatec/data.h"
 
@@ -21,9 +22,9 @@
 #define NAME       "despack"
 
 /* Version of package manager */
-#define VERSION    "despack 20.07.20"
+#define VERSION    "despack 20.07.20v2"
 
-/* Message for help user */
+/* Message for help the user */
 #define HELP       "Usage: despack [options] command\n\
 \n\
 despack is a commandline package maneger created by\n\
@@ -84,6 +85,11 @@ void compile(void);
  * o destino como 2º argumento */
 void install(const char *pkg, const char *dest);
 
+/* Processo de instalação do pacote
+ * 
+ * Recebe o nome do pacote como parametro */
+void install_process(const char *pkg_name);
+
 /* Cadastra o pacote instalado no
  * arquivo em /usr/share/pkgs.dat */
 void cadastrar_pacote(package pkg);
@@ -108,7 +114,7 @@ void update(void);
  * o nome do pacote como 2º argumento */
 void compactar(const char *folder, const char *pkg);
 
-/*  */
+/* Pegamos essa função neste link: https://code-examples.net/en/q/18f7ed */
 size_t write_data(void *ptr, size_t size, size_t nmeb, FILE *stream);
 
 #endif
