@@ -7,13 +7,14 @@
  *             Lucas Pereira de Matos <lucas.pereira.matos.000@gmail.com>
  * 
  * Date of begin: 20/07/2020
- * Date of last modification: 20/07/2020
+ * Date of last modification: 22/07/2020
  */
 
 #ifndef _PACKAGE_H
 #define _PACKAGE_H
 
 #include <curl/curl.h>
+#include <time.h>
 
 /* Library created by fatec students */
 #include "../include/fatec/data.h"
@@ -22,7 +23,7 @@
 #define NAME       "despack"
 
 /* Version of package manager */
-#define VERSION    "despack 20.07.20v2"
+#define VERSION    "despack 20.07.22"
 
 /* Message for help the user */
 #define HELP       "Usage: despack [options] command\n\
@@ -40,7 +41,7 @@ See despack man pages for more information about the commands.\n"
 
 /* Archive containing a list of packages on the
  * repository */
-#define PKG_LIST "/usr/share/despack/despack.list/"
+#define PKG_LIST "/usr/share/despack/despack.list"
 
 /* Archive where it will be listed the 
  * packages installed in sistem */
@@ -48,32 +49,42 @@ See despack man pages for more information about the commands.\n"
 
 /* Directory where it will be salved 
  * the packages */
-#define PKG_FOLDER "/var/cache/despack/"
+#define PKG_FOLDER "/usr/share/despack/packages/"
 
 /* Man page of package manager */
 #define PKG_MAN    "/usr/share/man/man8/despack.8.gz"
 
+/* Diretorio onde será descompactado
+ * o pacote para compilação */
+#define PKG_SRC    "/usr/src/"
+
 /* Repositorios dos pacotes */
-//const char *repository = { "https://www.github.com/Bacagine/pkg_manager/" };
+const char *repository = { "https://www.despack.github.io/packages/" };
+
+/* Link onde se encontra a
+ * lista de pacotes existentes
+ * no repositorio */
+const char *pkg_list_url = { "https://www.despack.github.io/packages/despack.list" };
 
 /* Structure that represent
  * a package */
 typedef struct{
     char name[51];
+    double memory;
     date dt_instalacao;
-    double memoria;
 } package;
 
 /* Faz download do pacote
  * 
- * Recebe o link do pacote como 1º argumento
- * e recebe o nome do pacote como 2º argumento */
-int download(const char *pkg);
+ * Recebe o nome do pacote como 1º argumento,
+ * o pacote como 2º argumento e o pacote salvo como 3º argumento */
+int download(const char *pkg_name, char *pkg, char *pkg_downloaded);
 
 /* Descompacta um pacote
  * 
- * Recebe o nome do pacote como argumento */
-void descompactar(const char *pkg);
+ * Recebe o pacote como 1º argumento e o 
+ * local para a descompactação como 2º argumento */
+void descompactar(const char *pkg_downloaded, const char *dest);
 
 /* Faz a compilação
  * do pacote */
@@ -83,7 +94,7 @@ void compile(void);
  * 
  * Recebe como 1º argumento o nome do pacote e
  * o destino como 2º argumento */
-void install(const char *pkg, const char *dest);
+void install(const char *pkg_name, const char *dest);
 
 /* Processo de instalação do pacote
  * 
@@ -102,7 +113,7 @@ void listar_pacotes(void);
  * 
  * Recebe o nome do pacote como
  * argumento */
-void uninstall(const char *pkg);
+void uninstall(const char *pkg_name);
 
 /* Atualiza a lista 
  * de pacotes */

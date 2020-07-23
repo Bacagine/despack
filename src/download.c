@@ -21,38 +21,68 @@ size_t write_data(void *ptr, size_t size, size_t nmeb, FILE *stream){
     return written;
 }
 
-int download(const char *pkg){
+int download(const char *pkg_name, char *pkg, char *pkg_downloaded){
+    /* Lista de pacotes
+     * existentes no
+     * repositorio */
     FILE *list;
     
     printf("Reading package list...\n");
     
     if((list = fopen(PKG_LIST, "r")) == NULL){
-        fprintf(stderr, "Error: %s archive or directory not found!\n", PKG_LIST);
+        fprintf(stderr, "Error: %s no such file or directory!\n", PKG_LIST);
         return 1;
     }
     
-    char line[100000], *url;
+    /* A variavel aux irá armazenar
+     * o contéudo encontrado na lista
+     * para completar a url.
+     * 
+     * Por exemplo:
+     * aux = h/hello.tar.xz
+     * repository = https://despack.github.com/packages/
+     * url = https://despack.github.com/packages/h/hello.tar.xz */
+    char line[100000], aux[51];
     int count = 0;
     
     /* Reading the package list */
     while(fgets(line, 100000, list) != NULL){
         /* search package on list */
-        if(strstr(pkg, line)){
+        if(strstr(pkg_name, line)){
             count++;
-            fscanf(list, "%s", url);
+            /* aux = h/hello.tar.xz */
+            strcpy(aux, line);
+            /* pkg = hello.tar.xz */
+            strcpy(pkg, &line[2]);
+            break;
         }
     }
     
     /* If package not 
      * found */
     if(count == 0){
-        fprintf(stderr, "Error: Package %s not found!\n", pkg);
+        fprintf(stderr, "Error: Package %s not found!\n", pkg_name);
         return 1;
     }
     
-    /* Close package 
+    /* Close package
      * list */
     fclose(list);
+    
+    /* url = link para baixar o pacote */
+    char url[51];
+    
+    /* url = https://despack.github.com/packages/ */
+    strcpy(url, repository);
+
+    /* url = https://despack.github.com/packages/h/hello.tar.xz */
+    strcat(url, aux);
+
+    /* pkg_dowloaded = /usr/share/despack/packages/ */
+    strcpy(pkg_downloaded, PKG_FOLDER);
+
+    /* pkg_dowloaded = /usr/share/despack/packages/hello.tar.xz */
+    strcat(pkg_downloaded, pkg);
     
     CURL *curl;
     CURLcode res;
@@ -60,13 +90,13 @@ int download(const char *pkg){
     
     curl = curl_easy_init();
     if(curl){
-        pack = fopen(pkg, "wb");
+        pack = fopen(pkg_downloaded, "wb");
         curl_easy_setopt(curl, CURLOPT_URL, url);
         curl_easy_setopt(curl, CURLOPT_WRITEINFO, write_data);
         curl_easy_setopt(curl, CURLOPT_WRITEDATA, pack);
         res = curl_easy_perform(curl);
         curl_easy_cleanup(curl);
         fclose(pack);
-        return 0;
     }
+    return 0;
 }

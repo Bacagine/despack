@@ -1,4 +1,8 @@
-/* Arquivo principal do gerenciador de pacotes */
+/* Arquivo principal do gerenciador de pacotes 
+ * 
+ * Date of begin: 20/07/2020
+ * Date of last modification: 20/07/2020
+ */
 
 #include <stdio.h>
 #include "../include/fatec/fatec.h"
@@ -26,19 +30,6 @@ int main(int argc, char **argv){
             /* Instala o pacote no sistema */
             if(!strcmp(argv[1], "-i") || !strcmp(argv[1], "--install")){
                 install_process(argv[2]);
-             /* Colocar tudo isso dentro 
-                da função chamada acima
-                ------------------------
-                package pkg;
-                strcpy(pkg.name, argv[2]);
-                pkg.dt_instalacao.dia = ;
-                pkg.dt_instalacao.mes = ;
-                pkg.dt_instalacao.ano = ;
-                download(repository, argv[2]);
-                descompactar(argv[2]);
-                compile();
-                install(argv[2], );
-                cadastrar_pacote(); */
             }
             /* Remove o pacote do sistema */
             else if(!strcmp(argv[1], "-r") || !strcmp(argv[1], "--remove")){
