@@ -1,6 +1,7 @@
-/* Date of begin: 22/07/2020 */
+/* Date of begin: 22/07/2020
+ * Date of last modification: 12/08/2020 */
 
-#include "../include/fatec/fatec.h"
+#include <fatec/fatec.h>
 #include "../include/package.h"
 
 void cadastrar_pacote(package pkg){
@@ -15,5 +16,5 @@ void cadastrar_pacote(package pkg){
     
     fseek(installed_list, sizeof(package), SEEK_END);
     
-    fwrite(&pkg, sizeof(package), 1, installed_list);    
+    fwrite(&pkg, sizeof(package), 1, installed_list);  
 }

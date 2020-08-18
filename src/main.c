@@ -1,16 +1,16 @@
-/* Arquivo principal do gerenciador de pacotes 
+/* Main file of package manager 
  * 
- * Date of begin: 20/07/2020
- * Date of last modification: 20/07/2020
+ * Begin's date: 07/20/2020
+ * Date of last modification: 08/12/2020
  */
 
 #include <stdio.h>
-#include "../include/fatec/fatec.h"
+#include <fatec/fatec.h>
 #include "../include/package.h"
 
 int main(int argc, char **argv){
     if(argc == 1){
-        fprintf(stderr, "Error: You don't pass arguments!\nUse: %s [OPTIONS] [NAME_PACKAGE]", argv[0]);
+        fprintf(stderr, "Error: You don't pass arguments!\nUse: %s [OPTIONS] [NAME_PACKAGE]\n", argv[0]);
         return 1;
     }
     else{
@@ -19,20 +19,23 @@ int main(int argc, char **argv){
                 update();
             }
             else if(!strcmp(argv[1], "-v") || !strcmp(argv[1], "--version")){
-                puts(VERSION);
+                print(VERSION);
             }
             else if(!strcmp(argv[1], "-h") || !strcmp(argv[1], "--help")){
-                puts(VERSION);
-                puts(HELP);
+                print(VERSION);
+                print(HELP);
+            }
+            else if(!strcmp(argv[1], "-dev") || !strcmp(argv[1], "--developers")){
+                developers(2, devs, emails, dev_year, dev_university, dev_city, DESCRIPTION);
             }
         }
         else if(argc == 3){
             /* Instala o pacote no sistema */
-            if(!strcmp(argv[1], "-i") || !strcmp(argv[1], "--install")){
+            if(!strcmp(argv[1], "-i") || !strcmp(argv[1], "install")){
                 install_process(argv[2]);
             }
             /* Remove o pacote do sistema */
-            else if(!strcmp(argv[1], "-r") || !strcmp(argv[1], "--remove")){
+            else if(!strcmp(argv[1], "-r") || !strcmp(argv[1], "remove")){
                 uninstall(argv[2]);
             }
             /* Atualiza um pacote */
@@ -42,7 +45,13 @@ int main(int argc, char **argv){
             }
             /* Descompacta o pacote no diretorio atual */
             else if(!strcmp(argv[1], "-x") || !strcmp(argv[1], "--extract")){
-                descompactar(argv[2]);
+                char dest;
+                descompactar(argv[2], &dest);
+            }
+            /* Faz download do pacote no diretorio /usr/share/despack/packages */
+            else if(!strcmp(argv[1], "download")){
+                char pack[26], pkg_downloaded[45], pkg_despack[19];
+                download(argv[2], pack, pkg_downloaded, pkg_despack);
             }
         }
         else if(argc == 4){
@@ -50,10 +59,15 @@ int main(int argc, char **argv){
             if(!strcmp(argv[1], "-c") || !strcmp(argv[1], "--compact")){
                 compactar(argv[2], argv[3]);
             }
+            else if(!strcmp(argv[1], "download")){
+                char pack[26], pkg_downloaded[45];
+                download(argv[2], pack, pkg_downloaded, argv[3]);
+            }
         }
         else{
-            fprintf(stderr, "Error: Ivalid arguments!\n");
+            fprint(stderr, "Error: Ivalid arguments!");
             return 1;
         }
     }
+    return 0;
 }

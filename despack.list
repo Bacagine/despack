@@ -4,6 +4,7 @@ c/
 d/
 e/
 f/firefox.tar.xz
+g/gdb.tar.xz
 g/gimp.tar.xz
 h/hello-2.10.tar.xz
 i/icecat.tar.xz
@@ -24,7 +25,8 @@ s/
 t/tcc-0.9.27.tar.xz
 u/
 v/
-w/
+w/wget.tar.xz
 x/xiphos.tar.xz
+x/xorg-server.tar.xz
 y/
 z/

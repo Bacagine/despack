@@ -9,7 +9,7 @@
  * 
  * 
  * Date of begin: 20/07/2020
- * Data of last modification: 20/07/2020
+ * Data of last modification: 10/08/2020
  */
 
 #include <stdio.h>
@@ -21,7 +21,7 @@ size_t write_data(void *ptr, size_t size, size_t nmeb, FILE *stream){
     return written;
 }
 
-int download(const char *pkg_name, char *pkg, char *pkg_downloaded){
+int download(const char *pkg_name, char *pkg, char *pkg_downloaded, char *pkg_despack){
     /* Lista de pacotes
      * existentes no
      * repositorio */
@@ -68,6 +68,18 @@ int download(const char *pkg_name, char *pkg, char *pkg_downloaded){
     /* Close package
      * list */
     fclose(list);
+    
+    /* Verificando o tamanho da string pkg */
+    int pkg_len;
+    pkg_len = strlen(pkg);
+    
+    /* pkg_len = hello */
+    pkg_len -= 7;
+    
+    for(int count = 0; count <= pkg_len; count++){
+        /* pkg_despack = hello */
+        strcpy(pkg_despack, &pkg[count]);
+    }
     
     /* url = link para baixar o pacote */
     char url[51];
