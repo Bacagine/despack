@@ -1,7 +1,7 @@
-/* Main file of package manager 
+/* Main file of despack package manager
  * 
  * Begin's date: 07/20/2020
- * Date of last modification: 08/12/2020
+ * Date of last modification: 09/04/2020
  */
 
 #include <stdio.h>
@@ -10,7 +10,7 @@
 
 int main(int argc, char **argv){
     if(argc == 1){
-        fprintf(stderr, "Error: You don't pass arguments!\nUse: %s [OPTIONS] [NAME_PACKAGE]\n", argv[0]);
+        fprintf(stderr, "Error: You don't pass arguments!\nUse: %s [options] <package_name>\n", argv[0]);
         return 1;
     }
     else{
@@ -24,10 +24,15 @@ int main(int argc, char **argv){
             else if(!strcmp(argv[1], "-h") || !strcmp(argv[1], "--help")){
                 print(VERSION);
                 print(HELP);
-            }
+            }/*
             else if(!strcmp(argv[1], "-dev") || !strcmp(argv[1], "--developers")){
+                // Nome dos desenvolvedores
+                const char devs[2][51] = { "Gustavo Samuel Bacagine Azevedo", "Lucas Pereira de Matos" };
+
+                // Email dos desenvolvedores
+                const char emails[2][51] = { "gustavo.bacagine@protonmail.com", "lucas.pereira.matos.000@gmail.com" };
                 developers(2, devs, emails, dev_year, dev_university, dev_city, DESCRIPTION);
-            }
+            }*/
         }
         else if(argc == 3){
             /* Instala o pacote no sistema */
@@ -36,12 +41,12 @@ int main(int argc, char **argv){
             }
             /* Remove o pacote do sistema */
             else if(!strcmp(argv[1], "-r") || !strcmp(argv[1], "remove")){
-                uninstall(argv[2]);
+                //uninstall(argv[2]);
             }
             /* Atualiza um pacote */
             else if(!strcmp(argv[1], "upgrade")){
-                uninstall(argv[2]);
-                install(repository, argv[2]);
+                //uninstall(argv[2]);
+                //install(repository, argv[2]);
             }
             /* Descompacta o pacote no diretorio atual */
             else if(!strcmp(argv[1], "-x") || !strcmp(argv[1], "--extract")){
@@ -57,7 +62,7 @@ int main(int argc, char **argv){
         else if(argc == 4){
             /* Cria um pacote */
             if(!strcmp(argv[1], "-c") || !strcmp(argv[1], "--compact")){
-                compactar(argv[2], argv[3]);
+                //compactar(argv[2], argv[3]);
             }
             else if(!strcmp(argv[1], "download")){
                 char pack[26], pkg_downloaded[45];

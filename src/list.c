@@ -7,8 +7,8 @@
  * 
  * 
  * 
- * Begin's date: 22/07/2020
- * Date of last modification: 17/08/2020
+ * Begin's date: 07/22/2020
+ * Date of last modification: 08/17/2020
  */
 
 #include <stdio.h>

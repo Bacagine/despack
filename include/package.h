@@ -7,7 +7,7 @@
  *             Lucas Pereira de Matos <lucas.pereira.matos.000@gmail.com>
  * 
  * Begin's date: 07/20/2020
- * Date of last modification: 08/17/2020
+ * Date of last modification: 09/04/2020
  */
 
 #ifndef _PACKAGE_H
@@ -15,13 +15,14 @@
 
 #include <time.h>
 #include <curl/curl.h>
+//#include <libtar.h>
 #include <fatec/date.h>
 
 /* Name of package manager */
 #define NAME       "despack"
 
 /* Version of package manager */
-#define VERSION    "despack 20.08.17"
+#define VERSION    "despack 20.09.08"
 
 /* Message for help the user */
 #define HELP       "Usage: despack [options] command\n\
@@ -61,27 +62,21 @@ students of FATEC Caraicuíba.\n"
 #define PKG_SRC    "/usr/src/"
 
 /* Repositorios dos pacotes */
-const char *repository = { "https://www.despack.github.io/packages/" };
+#define repository "https://www.despack.github.io/packages/"
 
 /* Link onde se encontra a
  * lista de pacotes existentes
  * no repositorio */
-const char *pkg_list_url = { "https://www.despack.github.io/packages/despack.list" };
-
-/* Nome dos desenvolvedores */
-const char devs[2][51] = { "Gustavo Samuel Bacagine Azevedo", "Lucas Pereira de Matos" };
-
-/* Email dos desenvolvedores */
-const char emails[2][51] = { "gustavo.bacagine@protonmail.com", "lucas.pereira.matos.000@gmail.com" };
+#define pkg_list_url "https://www.despack.github.io/packages/despack.list"
 
 /* Ano da última modificação */
-const int dev_year = 2020;
+#define dev_year 2020
 
 /* Cidade da faculdade */
-const char *dev_city = "Carapicuíba";
+#define dev_city "Carapicuíba"
 
 /* Nome da faculdade */
-const char *dev_university = "FATEC";
+#define dev_university "FATEC";
 
 /* Structure that represent
  * a instalation time of package */
@@ -175,5 +170,13 @@ size_t write_data(void *ptr, size_t size, size_t nmeb, FILE *stream);
 void get_date_time(int *day, int *month,
                    int *year, int *hour,
                    int *minute, int *second);
+
+/* Verifica a extensão de um pacote
+ * passado como parametro
+ * 
+ * Retorna -1 se o pacote for tar.bz2,
+ * retorna 0 se o pacote for tar.xz,
+ * ou retorna 1 se o pacote for tar.gz */
+int verifica_pacote(const char *pkg);
 
 #endif

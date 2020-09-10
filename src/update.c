@@ -1,4 +1,4 @@
-/* Date of begin: 21/07/2020 */
+/* Date of begin: 07/21/2020 */
 
 #include <stdio.h>
 #include "../include/package.h"

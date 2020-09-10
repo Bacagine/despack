@@ -8,8 +8,8 @@
  * 
  * 
  * 
- * Date of begin: 20/07/2020
- * Data of last modification: 10/08/2020
+ * Date of begin: 07/20/2020
+ * Data of last modification: 09/04/2020
  */
 
 #include <stdio.h>
@@ -47,8 +47,9 @@ int download(const char *pkg_name, char *pkg, char *pkg_downloaded, char *pkg_de
     
     /* Reading the package list */
     while(fgets(line, 100000, list) != NULL){
+//    while(fscanf(list, "%100000[^\n]", line)){
         /* search package on list */
-        if(strstr(pkg_name, line)){
+        if(strstr(line, pkg_name)){
             count++;
             /* aux = h/hello.tar.xz */
             strcpy(aux, line);
@@ -76,15 +77,15 @@ int download(const char *pkg_name, char *pkg, char *pkg_downloaded, char *pkg_de
     /* pkg_len = hello */
     pkg_len -= 7;
     
-    for(int count = 0; count <= pkg_len; count++){
+//    for(int count = 0; count <= pkg_len; count++){
         /* pkg_despack = hello */
-        strcpy(pkg_despack, &pkg[count]);
-    }
+        strncpy(pkg_despack, pkg, pkg_len);
+//    }
     
     /* url = link para baixar o pacote */
     char url[51];
     
-    /* url = https://despack.github.com/packages/ */
+    /* url = https://despack.github.io/packages/ */
     strcpy(url, repository);
 
     /* url = https://despack.github.com/packages/h/hello.tar.xz */
@@ -99,6 +100,8 @@ int download(const char *pkg_name, char *pkg, char *pkg_downloaded, char *pkg_de
     CURL *curl;
     CURLcode res;
     FILE *pack;
+    
+//    printf("%s\n", pkg_despack);
     
     curl = curl_easy_init();
     if(curl){
