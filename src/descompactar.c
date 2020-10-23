@@ -1,14 +1,13 @@
-/* Date of begin: 07/22/2020
- * Date of last modification: 09/04/2020 */
+/* Date of begin: 22/07/2020
+ * Date of last modification: 23/10/2020 */
 
-#include <stdlib.h>
 #include <string.h>
 #include "../include/package.h"
 
 void descompactar(const char *pkg_downloaded, const char *pkg_despack){
     char tar[5] = "tar ";
     const char tar_options[3][7] = { "-xzvf ", "-xvf ", "-xjvf " };
-    char command[69];
+    char *command = (char *)malloc(sizeof(char) * 69);
 /*    char extension[9];
     int len;
     
@@ -73,4 +72,5 @@ void descompactar(const char *pkg_downloaded, const char *pkg_despack){
         /* execute tar -xjvf ola.tar.bz2 -C /usr/src */
         system(command);
     }
+    free(command);
 }

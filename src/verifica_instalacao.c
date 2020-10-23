@@ -1,4 +1,5 @@
-/* Date of begin: 08/10/2020 */
+/* Data: 10/08/2020
+ * Data da ultima modificação: 23/10/2020 */
 
 #include <stdio.h>
 #include <string.h>
@@ -6,7 +7,7 @@
 
 int verifica_instalacao(const char *pkg_name){
     FILE *prog;
-    char pkg[25];
+    char *pkg = (char *) malloc(sizeof(char) * 25);
     
     strcpy(pkg, "/usr/bin/");
     strcat(pkg, pkg_name);
@@ -17,6 +18,8 @@ int verifica_instalacao(const char *pkg_name){
     }
     
     fclose(prog);
+    
+    free(pkg);
     
     return 0;
 }

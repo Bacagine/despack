@@ -6,13 +6,14 @@
  * Developers: Gustavo Bacagine       <gustavo.bacagine@protnomail.com>
  *             Lucas Pereira de Matos <lucas.pereira.matos.000@gmail.com>
  * 
- * Begin's date: 07/20/2020
- * Date of last modification: 09/04/2020
+ * Begin's date: 20/07/2020
+ * Date of last modification: 23/10/2020
  */
 
 #ifndef _PACKAGE_H
 #define _PACKAGE_H
 
+#include <stdlib.h>
 #include <time.h>
 #include <curl/curl.h>
 //#include <libtar.h>
@@ -22,7 +23,7 @@
 #define NAME       "despack"
 
 /* Version of package manager */
-#define VERSION    "despack 20.09.08"
+#define VERSION    "despack 20.10.23"
 
 /* Message for help the user */
 #define HELP       "Usage: despack [options] command\n\
@@ -76,7 +77,7 @@ students of FATEC Caraicuíba.\n"
 #define dev_city "Carapicuíba"
 
 /* Nome da faculdade */
-#define dev_university "FATEC";
+#define dev_university "FATEC"
 
 /* Structure that represent
  * a instalation time of package */
@@ -127,7 +128,7 @@ int verifica_instalacao(const char *pkg_name);
 
 /* Cadastra o pacote instalado no
  * arquivo em /usr/share/pkgs.dat */
-void cadastrar_pacote(package pkg);
+void cadastrar_pacote(package *pkg);
 
 /* Lista os pacotes instalados
  * no sistema */

@@ -1,7 +1,7 @@
 /* Main file of despack package manager
  * 
- * Begin's date: 07/20/2020
- * Date of last modification: 09/04/2020
+ * Begin's date: 20/07/2020
+ * Date of last modification: 23/10/2020
  */
 
 #include <stdio.h>
@@ -50,13 +50,26 @@ int main(int argc, char **argv){
             }
             /* Descompacta o pacote no diretorio atual */
             else if(!strcmp(argv[1], "-x") || !strcmp(argv[1], "--extract")){
-                char dest;
-                descompactar(argv[2], &dest);
+                char *dest = (char *) malloc(sizeof(char));
+                
+                descompactar(argv[2], dest);
+                
+                free(dest);
             }
             /* Faz download do pacote no diretorio /usr/share/despack/packages */
             else if(!strcmp(argv[1], "download")){
-                char pack[26], pkg_downloaded[45], pkg_despack[19];
+                /* Alocando espaço na memoria */
+                char *pack = (char *) malloc(sizeof(char) * 26);
+                char *pkg_downloaded = (char *) malloc(sizeof(char) * 45);
+                char *pkg_despack = (char *) malloc(sizeof(char) * 19);
+                
                 download(argv[2], pack, pkg_downloaded, pkg_despack);
+                
+                /* Liberando memoria
+                 * alocada */
+                free(pack);
+                free(pkg_downloaded);
+                free(pkg_despack);
             }
         }
         else if(argc == 4){
@@ -65,8 +78,13 @@ int main(int argc, char **argv){
                 //compactar(argv[2], argv[3]);
             }
             else if(!strcmp(argv[1], "download")){
-                char pack[26], pkg_downloaded[45];
+                char *pack = (char *) malloc(sizeof(char) * 26);
+                char *pkg_downloaded = (char *) malloc(sizeof(char) * 45);
+                
                 download(argv[2], pack, pkg_downloaded, argv[3]);
+                
+                free(pack);
+                free(pkg_downloaded);
             }
         }
         else{

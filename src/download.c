@@ -8,8 +8,8 @@
  * 
  * 
  * 
- * Date of begin: 07/20/2020
- * Data of last modification: 09/04/2020
+ * Date of begin: 20/07/2020
+ * Data of last modification: 23/10/2020
  */
 
 #include <stdio.h>
@@ -42,17 +42,19 @@ int download(const char *pkg_name, char *pkg, char *pkg_downloaded, char *pkg_de
      * aux = h/hello.tar.xz
      * repository = https://despack.github.com/packages/
      * url = https://despack.github.com/packages/h/hello.tar.xz */
-    char line[100000], aux[51];
+    char *line = (char *) malloc(sizeof(char) * 100);
+    char *aux = (char *) malloc(sizeof(char) * 51);
     int count = 0;
     
     /* Reading the package list */
-    while(fgets(line, 100000, list) != NULL){
-//    while(fscanf(list, "%100000[^\n]", line)){
+    while(fgets(line, 100, list) != NULL){
+//    while(fscanf(list, "%100[^\n]", line)){
         /* search package on list */
         if(strstr(line, pkg_name)){
             count++;
             /* aux = h/hello.tar.xz */
-            strcpy(aux, line);
+            //strcpy(aux, line);
+            sscanf(aux, "%100[^\n]", line);
             /* pkg = hello.tar.xz */
             strcpy(pkg, &line[2]);
             break;
@@ -113,5 +115,9 @@ int download(const char *pkg_name, char *pkg, char *pkg_downloaded, char *pkg_de
         curl_easy_cleanup(curl);
         fclose(pack);
     }
+    
+    free(aux);
+    free(line);
     return 0;
 }
+
