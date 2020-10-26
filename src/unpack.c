@@ -1,13 +1,22 @@
 /* Date of begin: 22/07/2020
- * Date of last modification: 23/10/2020 */
+ * Date of last modification: 26/10/2020 */
 
 #include <string.h>
 #include "../include/package.h"
 
-void descompactar(const char *pkg_downloaded, const char *pkg_despack){
+int unpack(const char *pkg_downloaded, const char *pkg_despack){
     char tar[5] = "tar ";
     const char tar_options[3][7] = { "-xzvf ", "-xvf ", "-xjvf " };
-    char *command = (char *)malloc(sizeof(char) * 69);
+    char *command = (char *) malloc(sizeof(char) * 69);
+    
+    /* Verify if memory
+     * allocation is
+     * possible */
+    if(command == NULL){
+        fprintf(stderr, NO_MEMORY);
+        return MEM_ERR;
+    }
+    
 /*    char extension[9];
     int len;
     
@@ -21,10 +30,9 @@ void descompactar(const char *pkg_downloaded, const char *pkg_despack){
     /* command = "tar " */
     strcpy(command, tar);
     
-    /* Verificando a extensão do pacote para
-     * poder realizar a descompactação
-     * adequadamente */
-    if(verifica_pacote(pkg_downloaded) == 0){
+    /* Verifing the extension of the package to
+     * unzip properly */
+    if(verify_package(pkg_downloaded) == 0){
         /* command = "tar -xzvf " */
         strcat(command, tar_options[0]);
         
@@ -40,7 +48,7 @@ void descompactar(const char *pkg_downloaded, const char *pkg_despack){
         /* execute tar -xzvf ola.tar.xz -C /usr/src/ola */
         system(command);
     }
-    else if(verifica_pacote(pkg_downloaded) == 1){
+    else if(verify_package(pkg_downloaded) == 1){
         /* command = "tar -xvf " */
         strcat(command, tar_options[1]);
         
@@ -56,7 +64,7 @@ void descompactar(const char *pkg_downloaded, const char *pkg_despack){
         /* execute tar -xvf ola.tar.gz -C /usr/src */
         system(command);
     }
-    else if(verifica_pacote(pkg_downloaded) == -1){
+    else if(verify_package(pkg_downloaded) == -1){
         /* command = "tar -xjvf " */
         strcat(command, tar_options[2]);
         
@@ -73,4 +81,5 @@ void descompactar(const char *pkg_downloaded, const char *pkg_despack){
         system(command);
     }
     free(command);
+    return OK;
 }

@@ -9,7 +9,7 @@
  * 
  * 
  * Date of begin: 20/07/2020
- * Data of last modification: 23/10/2020
+ * Data of last modification: 26/10/2020
  */
 
 #include <stdio.h>
@@ -21,29 +21,37 @@ size_t write_data(void *ptr, size_t size, size_t nmeb, FILE *stream){
     return written;
 }
 
-int download(const char *pkg_name, char *pkg, char *pkg_downloaded, char *pkg_despack){
-    /* Lista de pacotes
-     * existentes no
-     * repositorio */
+int download(const char *pkg_name, char *pack, char *pkg_downloaded, char *pkg_despack){
+    /* List of existing
+     * packages in
+     * repository */
     FILE *list;
     
     printf("Reading package list...\n");
     
+    /* Verifing if the package list exist in user's system */
     if((list = fopen(PKG_LIST, "r")) == NULL){
         fprintf(stderr, "Error: %s no such file or directory!\n", PKG_LIST);
-        return 1;
+        return FILE_ERR;
     }
     
-    /* A variavel aux irá armazenar
-     * o contéudo encontrado na lista
-     * para completar a url.
+    /* The variable aux will be stored
+     * the content found on list
+     * to complet the url.
      * 
-     * Por exemplo:
+     * For example:
      * aux = h/hello.tar.xz
      * repository = https://despack.github.com/packages/
      * url = https://despack.github.com/packages/h/hello.tar.xz */
     char *line = (char *) malloc(sizeof(char) * 100);
     char *aux = (char *) malloc(sizeof(char) * 51);
+    
+    /* Verify if memory allocation is possible */
+    if(line == NULL || aux == NULL){
+        fprintf(stderr, NO_MEMORY);
+        return MEM_ERR;
+    }
+    
     int count = 0;
     
     /* Reading the package list */
@@ -53,38 +61,38 @@ int download(const char *pkg_name, char *pkg, char *pkg_downloaded, char *pkg_de
         if(strstr(line, pkg_name)){
             count++;
             /* aux = h/hello.tar.xz */
-            //strcpy(aux, line);
-            sscanf(aux, "%100[^\n]", line);
+            strcpy(aux, line);
+            //sscanf(aux, "%100[^\n]", line);
             /* pkg = hello.tar.xz */
-            strcpy(pkg, &line[2]);
+            strcpy(pack, &line[2]);
             break;
         }
     }
     
-    /* If package not 
-     * found */
+    /* If the package
+     * not found */
     if(count == 0){
         fprintf(stderr, "Error: Package %s not found!\n", pkg_name);
-        return 1;
+        return NO_PACK;
     }
     
-    /* Close package
-     * list */
+    /* Close the 
+     * package list */
     fclose(list);
     
-    /* Verificando o tamanho da string pkg */
+    /* Veryfing the length of the string pack */
     int pkg_len;
-    pkg_len = strlen(pkg);
+    pkg_len = strlen(pack);
     
     /* pkg_len = hello */
     pkg_len -= 7;
     
 //    for(int count = 0; count <= pkg_len; count++){
         /* pkg_despack = hello */
-        strncpy(pkg_despack, pkg, pkg_len);
+        strncpy(pkg_despack, pack, pkg_len);
 //    }
     
-    /* url = link para baixar o pacote */
+    /* url = link to download the package */
     char url[51];
     
     /* url = https://despack.github.io/packages/ */
@@ -97,27 +105,27 @@ int download(const char *pkg_name, char *pkg, char *pkg_downloaded, char *pkg_de
     strcpy(pkg_downloaded, PKG_FOLDER);
 
     /* pkg_dowloaded = /usr/share/despack/packages/hello.tar.xz */
-    strcat(pkg_downloaded, pkg);
+    strcat(pkg_downloaded, pack);
     
     CURL *curl;
     CURLcode res;
-    FILE *pack;
+    FILE *pack_d;
     
 //    printf("%s\n", pkg_despack);
     
     curl = curl_easy_init();
     if(curl){
-        pack = fopen(pkg_downloaded, "wb");
+        pack_d = fopen(pkg_downloaded, "wb");
         curl_easy_setopt(curl, CURLOPT_URL, url);
         curl_easy_setopt(curl, CURLOPT_WRITEINFO, write_data);
-        curl_easy_setopt(curl, CURLOPT_WRITEDATA, pack);
+        curl_easy_setopt(curl, CURLOPT_WRITEDATA, pack_d);
         res = curl_easy_perform(curl);
         curl_easy_cleanup(curl);
-        fclose(pack);
+        fclose(pack_d);
     }
     
     free(aux);
     free(line);
-    return 0;
+    
+    return OK;
 }
-

@@ -1,13 +1,14 @@
-/* GitHub: https://github.com/Bacagine/pkg_manager/
+/* GitHub: https://github.com/Bacagine/despack/
  * 
- * package.h: Library with functions useds
- * in package managment
+ * Copyright: (C) 2020
+ * 
+ * package.h: Library with functions that were useds in package managment
  * 
  * Developers: Gustavo Bacagine       <gustavo.bacagine@protnomail.com>
  *             Lucas Pereira de Matos <lucas.pereira.matos.000@gmail.com>
  * 
  * Begin's date: 20/07/2020
- * Date of last modification: 23/10/2020
+ * Date of last modification: 26/10/2020
  */
 
 #ifndef _PACKAGE_H
@@ -23,7 +24,7 @@
 #define NAME       "despack"
 
 /* Version of package manager */
-#define VERSION    "despack 20.10.23"
+#define VERSION    "despack 20.10.26"
 
 /* Message for help the user */
 #define HELP       "Usage: despack [options] command\n\
@@ -40,15 +41,20 @@ Commands:\n\
 \n\
 See despack man pages for more information about the commands.\n"
 
+/* Description of the software */
 #define DESCRIPTION "despack is a commandline package maneger created by\n\
 students of FATEC Caraicuíba.\n"
 
-/* Archive containing a list of packages on the
+/* File containing the packages list on the
  * repository */
-#define PKG_LIST "/usr/share/despack/despack.list"
+#define PKG_LIST     "/usr/share/despack/despack.list"
 
-/* Archive where it will be listed the 
- * packages installed in sistem */
+/* File containing a old packages list on the
+ * repository */
+#define PKG_LIST_OLD "/usr/share/despack/despack.list.old"
+
+/* File where it will be listed the 
+ * packages installed in system */
 #define PKG_INSTALLED_LIST   "/usr/share/despack/pkgs.dat"
 
 /* Directory where it will be salved 
@@ -58,26 +64,55 @@ students of FATEC Caraicuíba.\n"
 /* Man page of package manager */
 #define PKG_MAN    "/usr/share/man/man8/despack.8.gz"
 
-/* Diretorio onde será descompactado
- * o pacote para compilação */
+/* Directory where the package will
+ * be unpacked for compilation */
 #define PKG_SRC    "/usr/src/"
 
-/* Repositorios dos pacotes */
+/* Packages repository */
 #define repository "https://www.despack.github.io/packages/"
 
-/* Link onde se encontra a
- * lista de pacotes existentes
- * no repositorio */
+/* Link where is the list of existing
+ * packages on repository */
 #define pkg_list_url "https://www.despack.github.io/packages/despack.list"
 
-/* Ano da última modificação */
+/* Year of last software
+ * modification */
 #define dev_year 2020
 
-/* Cidade da faculdade */
+/* City of college */
 #define dev_city "Carapicuíba"
 
-/* Nome da faculdade */
+/* College name */
 #define dev_university "FATEC"
+
+/* Error message when the memory
+ * is insuffitient */
+#define NO_MEMORY "Error: Not enough memory to carry out the allocation!\n"
+
+/*
+ * RETURN VALUES
+ * --------------
+ * Default error        -1 -> Anithing error
+ * Ok                    0 -> Everthing rigth
+ * Installed package     1 -> The package is installed on system with sucess
+ * 
+ * Files
+ * ---------
+ * is a zip file         2 -> zip     package
+ * is a tar.gz file      3 -> tar.gz  package
+ * is a tar.xz file      4 -> tar.xz  package
+ * is a tar.bz2 file     5 -> tar.bz2 package
+ * 
+ * Erros values
+ * ------------
+ * Arguments error      22 -> User pass invalid parameters or don't pass parameters
+ * File error           25 -> No such file
+ * No package           35 -> Package not found
+ * Memory error        525 -> When not enough memory to carry out the memory allocation
+ */
+enum RETURN_VALUES{ DEFAULT_ERR = -1, OK, INSTALLED_PKG,
+                    IS_ZIP, IS_TAR_GZ, IS_TAR_XZ, IS_TAR_BZ,
+                    ARG_ERR = 22, FILE_ERR = 25, NO_PACK = 35, MEM_ERR = 525 };
 
 /* Structure that represent
  * a instalation time of package */
@@ -91,77 +126,79 @@ typedef struct{
  * a package */
 typedef struct{
     char name[51];
-    double memory;
+    //double memory;
+    char memory[7];
     date dt_instalacao;
     time_i tm_instalacao;
 } package;
 
-/* Processo de instalação do pacote
+/* Package install process
  * 
- * Recebe o nome do pacote como parametro */
-void install_process(const char *pkg_name);
+ * Receive the package name as parameter */
+int install_process(const char *pkg_name);
 
-/* Faz download do pacote
+/* Download of package
  * 
- * Recebe o nome do pacote como 1º argumento,
- * o pacote como 2º argumento e o pacote salvo,
- * como 3º argumento o pacote no local de download
- * e como 4º argumento o pacote descompactado no
- * local para compilação */
-int download(const char *pkg_name, char *pkg, char *pkg_downloaded, char *pkg_despack);
+ * Receive the name of the package as the 1º parameter,
+ * The saved package is used as the 2º parameter,
+ * The package in the directory that the download
+ * will be is the 3º parameter,
+ * And as the 4º parameter is the package unpacked in
+ * the directory for compilation */
+int download(const char *pkg_name, char *pack, char *pkg_downloaded, char *pkg_despack);
 
-/* Descompacta um pacote
+/* Unpack a package
  * 
- * Recebe o pacote como 1º argumento e o 
- * local para a descompactação como 2º argumento */
-void descompactar(const char *pkg_downloaded, const char *pkg_despack);
+ * Receive the package as 1º parameter and the 
+ * local to unpack as 2º parameter */
+int unpack(const char *pkg_downloaded, const char *pkg_despack);
 
-/* Faz a compilação
- * do pacote */
-void compile(char *pkg_src);
+/* Compile and install a package */
+int compile(char *pkg_src);
 
-/* Verifica se o pacote foi
- * instalado com sucesso.
- * Em caso positivo retorna 0,
- * em caso negativo retorna 1 */
-int verifica_instalacao(const char *pkg_name);
-
-/* Cadastra o pacote instalado no
- * arquivo em /usr/share/pkgs.dat */
-void cadastrar_pacote(package *pkg);
-
-/* Lista os pacotes instalados
- * no sistema */
-void listar_pacotes(void);
-
-/* Instala o pacote no sistema
+/* Verify if the package was
+ * installed with sucess.
  * 
- * Recebe como 1º argumento o nome do pacote e
- * o destino como 2º argumento */
-void install(const char *pkg_name, const char *pkg_despack);
+ * In positive case return 0,
+ * in negative case return 1 */
+int verify_instalation(const char *pkg_name);
 
-/* Desinstala o pacote do sistema
+/* Register the installed package on
+ * archvie in /usr/share/pkgs.dat */
+int register_package(package *pkg);
+
+/* List the installed packages
+ * on system */
+int list_packages(void);
+
+/* Install a package on system
  * 
- * Recebe o nome do pacote como
- * argumento */
-void uninstall(const char *pkg_name);
+ * Receive as 1º parameter the name of package and
+ * the destiny as 2º parameter */
+int install(const char *pkg_name, const char *pkg_despack);
 
-/* Atualiza a lista 
- * de pacotes */
+/* Uninstall the package of system
+ * 
+ * Receive the package name as a
+ * parameter */
+int uninstall(const char *pkg_name);
+
+/* Update the package
+ * list */
 void update(void);
 
-/* Pesquisa se um determinado pacote
- * existe no repositorio
+/* Search if a determite package
+ * exist on repository
  * 
- * Recebe o nome do pacote a ser pesquisado
- * como parametro */
-void search(const char *pkg_name);
+ * Gets the name of the package to be searched
+ * as parameter */
+int search(const char *pkg_name);
 
-/* Cria um pacote atraves de um diretorio
+/* Create a package atraves of directory
  * 
- * Recebe como 1º argumento o nome do diretorio e 
- * o nome do pacote como 2º argumento */
-void compactar(const char *folder, char *pkg);
+ * Receive as 1st parameter the directory name and 
+ * the name of package as 2nd parameter */
+void compress(const char *folder, char *pack);
 
 /* We took this function in: https://code-examples.net/en/q/18f7ed */
 size_t write_data(void *ptr, size_t size, size_t nmeb, FILE *stream);
@@ -172,12 +209,19 @@ void get_date_time(int *day, int *month,
                    int *year, int *hour,
                    int *minute, int *second);
 
-/* Verifica a extensão de um pacote
- * passado como parametro
+/* Verify the package extension
+ * passed with parameter
  * 
- * Retorna -1 se o pacote for tar.bz2,
- * retorna 0 se o pacote for tar.xz,
- * ou retorna 1 se o pacote for tar.gz */
-int verifica_pacote(const char *pkg);
+ * Return IS_TAR_BZ if the package is tar.bz2,
+ * return IS_TAR_XZ if the package is tar.xz,
+ * or return IS_TAR_GZ if the package is tar.gz */
+int verify_package(const char *pack);
+
+/* Upgrade one package passed
+ * with parameter */
+int upgrade(const char *pkg_name);
+
+/* Upgrade all packages */
+int full_upgrade(void);
 
 #endif

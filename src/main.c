@@ -1,7 +1,11 @@
-/* Main file of despack package manager
+/* GitHub: 
+ * 
+ * Copyright (C) 2020
+ * 
+ * Main file of despack package manager
  * 
  * Begin's date: 20/07/2020
- * Date of last modification: 23/10/2020
+ * Date of last modification: 26/10/2020
  */
 
 #include <stdio.h>
@@ -11,86 +15,105 @@
 int main(int argc, char **argv){
     if(argc == 1){
         fprintf(stderr, "Error: You don't pass arguments!\nUse: %s [options] <package_name>\n", argv[0]);
-        return 1;
+        return ARG_ERR;
+    }
+    else if(argc == 2){
+        if(!strcmp(argv[1], "update")){
+            update();
+        }
+        else if(!strcmp(argv[1], "-v") || !strcmp(argv[1], "--version")){
+            print(VERSION);
+        }
+        else if(!strcmp(argv[1], "-h") || !strcmp(argv[1], "--help")){
+            print(VERSION);
+            print(HELP);
+        }/*
+        else if(!strcmp(argv[1], "-dev") || !strcmp(argv[1], "--developers")){
+            // Nome dos desenvolvedores
+            const char devs[2][51] = { "Gustavo Samuel Bacagine Azevedo", "Lucas Pereira de Matos" };
+
+            // Email dos desenvolvedores
+            const char emails[2][51] = { "gustavo.bacagine@protonmail.com", "lucas.pereira.matos.000@gmail.com" };
+            developers(2, devs, emails, dev_year, dev_university, dev_city, DESCRIPTION);
+        }*/
+    }
+    else if(argc == 3){
+        /* Install the package on system */
+        if(!strcmp(argv[1], "-i") || !strcmp(argv[1], "install")){
+            install_process(argv[2]);
+        }
+        /* Remove the package of system */
+        else if(!strcmp(argv[1], "-r") || !strcmp(argv[1], "remove")){
+            //uninstall(argv[2]);
+        }
+        /* Upgrade a package */
+        else if(!strcmp(argv[1], "upgrade")){
+            //uninstall(argv[2]);
+            //install(repository, argv[2]);
+        }
+        /* Unpack the package on diretorio atual */
+        else if(!strcmp(argv[1], "-x") || !strcmp(argv[1], "--extract")){
+            char *dest = (char *) malloc(sizeof(char));
+            
+            /* Verify if memory allocation is possible */
+            if(dest == NULL){
+                fprint(stderr, NO_MEMORY);
+                return MEM_ERR;
+            }
+            
+            unpack(argv[2], dest);
+            
+            free(dest);
+        }
+        /* Download of package on directory /usr/share/despack/packages */
+        else if(!strcmp(argv[1], "download")){
+            /* Alloc space in memory */
+            char *pack = (char *) malloc(sizeof(char) * 26);
+            char *pkg_downloaded = (char *) malloc(sizeof(char) * 45);
+            char *pkg_despack = (char *) malloc(sizeof(char) * 19);
+            
+            /* Verify if memory allocation is possible */
+            if(pack == NULL || pkg_downloaded == NULL || pkg_despack == NULL){
+                fprint(stderr, NO_MEMORY);
+                return MEM_ERR;
+            }
+            
+            download(argv[2], pack, pkg_downloaded, pkg_despack);
+                
+            /* Free memory
+             * allocated */
+            free(pack);
+            free(pkg_downloaded);
+            free(pkg_despack);
+        }
+    }
+    else if(argc == 4){
+        /* Create a package */
+        if(!strcmp(argv[1], "-c") || !strcmp(argv[1], "--compact")){
+            //compactar(argv[2], argv[3]);
+        }
+        else if(!strcmp(argv[1], "download")){
+            char *pack = (char *) malloc(sizeof(char) * 26);
+            char *pkg_downloaded = (char *) malloc(sizeof(char) * 45);
+            
+            /* Verify if memory allocation is possible */
+            if(pack == NULL || pkg_downloaded == NULL){
+                fprint(stderr, NO_MEMORY);
+                return MEM_ERR;
+            }
+            
+            download(argv[2], pack, pkg_downloaded, argv[3]);
+            
+            /* Free the memory
+             * space that was
+             * allocated */
+            free(pack);
+            free(pkg_downloaded);
+        }
     }
     else{
-        if(argc == 2){
-            if(!strcmp(argv[1], "update")){
-                update();
-            }
-            else if(!strcmp(argv[1], "-v") || !strcmp(argv[1], "--version")){
-                print(VERSION);
-            }
-            else if(!strcmp(argv[1], "-h") || !strcmp(argv[1], "--help")){
-                print(VERSION);
-                print(HELP);
-            }/*
-            else if(!strcmp(argv[1], "-dev") || !strcmp(argv[1], "--developers")){
-                // Nome dos desenvolvedores
-                const char devs[2][51] = { "Gustavo Samuel Bacagine Azevedo", "Lucas Pereira de Matos" };
-
-                // Email dos desenvolvedores
-                const char emails[2][51] = { "gustavo.bacagine@protonmail.com", "lucas.pereira.matos.000@gmail.com" };
-                developers(2, devs, emails, dev_year, dev_university, dev_city, DESCRIPTION);
-            }*/
-        }
-        else if(argc == 3){
-            /* Instala o pacote no sistema */
-            if(!strcmp(argv[1], "-i") || !strcmp(argv[1], "install")){
-                install_process(argv[2]);
-            }
-            /* Remove o pacote do sistema */
-            else if(!strcmp(argv[1], "-r") || !strcmp(argv[1], "remove")){
-                //uninstall(argv[2]);
-            }
-            /* Atualiza um pacote */
-            else if(!strcmp(argv[1], "upgrade")){
-                //uninstall(argv[2]);
-                //install(repository, argv[2]);
-            }
-            /* Descompacta o pacote no diretorio atual */
-            else if(!strcmp(argv[1], "-x") || !strcmp(argv[1], "--extract")){
-                char *dest = (char *) malloc(sizeof(char));
-                
-                descompactar(argv[2], dest);
-                
-                free(dest);
-            }
-            /* Faz download do pacote no diretorio /usr/share/despack/packages */
-            else if(!strcmp(argv[1], "download")){
-                /* Alocando espaço na memoria */
-                char *pack = (char *) malloc(sizeof(char) * 26);
-                char *pkg_downloaded = (char *) malloc(sizeof(char) * 45);
-                char *pkg_despack = (char *) malloc(sizeof(char) * 19);
-                
-                download(argv[2], pack, pkg_downloaded, pkg_despack);
-                
-                /* Liberando memoria
-                 * alocada */
-                free(pack);
-                free(pkg_downloaded);
-                free(pkg_despack);
-            }
-        }
-        else if(argc == 4){
-            /* Cria um pacote */
-            if(!strcmp(argv[1], "-c") || !strcmp(argv[1], "--compact")){
-                //compactar(argv[2], argv[3]);
-            }
-            else if(!strcmp(argv[1], "download")){
-                char *pack = (char *) malloc(sizeof(char) * 26);
-                char *pkg_downloaded = (char *) malloc(sizeof(char) * 45);
-                
-                download(argv[2], pack, pkg_downloaded, argv[3]);
-                
-                free(pack);
-                free(pkg_downloaded);
-            }
-        }
-        else{
-            fprint(stderr, "Error: Ivalid arguments!");
-            return 1;
-        }
+        fprint(stderr, "Error: Ivalid arguments!");
+        return ARG_ERR;
     }
-    return 0;
+    return OK;
 }

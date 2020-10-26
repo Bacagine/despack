@@ -1,12 +1,19 @@
 /* Date of creation: 22/07/2020
- * Date of last modification: 23/10/2020 */
+ * Date of last modification: 26/10/2020 */
 
 #include <string.h>
 #include "../include/package.h"
 
-void compile(char *pkg_src){
+int compile(char *pkg_src){
     char *src = (char *) malloc(sizeof(char) * 28);
     char *config = (char *) malloc(sizeof(char) * 38);
+    
+    /* Verify if memory allocation is possible */
+    if(src == NULL || config == NULL){
+        fprintf(stderr, NO_MEMORY);
+        return MEM_ERR;
+    }
+    
     char make[46] = "make -f ", make_install[54] = "make install -f ";
     
     /* Armazenando onde o pacote
@@ -32,13 +39,15 @@ void compile(char *pkg_src){
     /* make_install = make install -f /usr/src/hello/Makefile */
     strcat(make_install, "/Makefile");
     
-    /* Realizando configuração
-     * compilação e insalação
-     * do programa */
+    /* Make the configuration,
+     * compilation and instalation
+     * of the program. */
     system(config);
     system(make);
     system(make_install);
     
     free(config);
     free(src);
+    
+    return OK;
 }

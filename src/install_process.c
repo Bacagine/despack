@@ -1,11 +1,11 @@
 /* Date of begin: 22/07/2020
- * Date of last modification: 23/10/2020 */
+ * Date of last modification: 26/10/2020 */
 
 #include <string.h>
 #include <fatec/fatec.h>
 #include "../include/package.h"
 
-void install_process(const char *pkg_name){
+int install_process(const char *pkg_name){
     package *pkg = (package *) malloc(sizeof(package));
     
     /* For example: pack = hello.tar.xz
@@ -17,10 +17,17 @@ void install_process(const char *pkg_name){
     char *pkg_despack = (char *) malloc(sizeof(char) * 19);
     char *pkg_src = (char *) malloc(sizeof(char) * 28);
     
+    /* Verify if memory allocation is possible */
+    if(pkg == NULL || pack == NULL || pkg_downloaded == NULL ||
+       pkg_despack == NULL || pkg_src == NULL){
+        fprint(stderr, NO_MEMORY);
+        return MEM_ERR;
+    }
+    
     int day, month, year, hour, minute, second;
     
-    /* Salvando o nome do pacote
-     * para poder usá-lo no cadastro */
+    /* Saving the package name
+     * to be able to register */
     strcpy(pkg->name, pkg_name);
 
 /*  Aqui precisamos descobrir a
@@ -36,16 +43,19 @@ void install_process(const char *pkg_name){
     /* pkg_src = /usr/src/hello */
     strcat(pkg_src, pkg_despack);
     
-    /* Descompacta o pacote para o
-     * diretorio de compilação */
-    descompactar(pkg_name, pkg_src);
+    /* Unzip the package to the
+     * compiling directory */
+    unpack(pkg_name, pkg_src);
     
     /* Compile and install
      * the package */
     compile(pkg_src);
     
+    /* Gets the date and time of the package instalation */
     get_date_time(&day, &month, &year, &hour, &minute, &second);
     
+    /* It stores the variables on
+     * structure package */
     pkg->dt_instalacao.day = day;
     pkg->dt_instalacao.month = month;
     pkg->dt_instalacao.year = year;
@@ -53,20 +63,25 @@ void install_process(const char *pkg_name){
     pkg->tm_instalacao.minute = minute;
     pkg->tm_instalacao.second = second;
     
-    /* If the package was installed realiza
-     * the cadastro of package na lista de
-     * pacotes instalados */
-    if(verifica_instalacao(pkg->name)){
-        cadastrar_pacote(pkg);
+    /* If the package was installed make
+     * the register of the package on
+     * installed package list */
+    if(verify_instalation(pkg->name)){
+        register_package(pkg);
     }
     else{
         fprintf(stderr, "Error: Nao foi possivel instalar o programa: %s!\n", pkg->name);
-        return;
+        return DEFAULT_ERR;
     }
     
+    /* Free the memory
+     * space that was
+     * allocated */
     free(pkg_src);
     free(pkg_despack);
     free(pkg_downloaded);
     free(pack);
     free(pkg);
+    
+    return OK;
 }
