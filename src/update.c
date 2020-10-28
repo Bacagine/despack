@@ -1,7 +1,8 @@
 /* GitHub: 
  * 
- * update.c: 
+ * COpyright (C) 2020
  * 
+ * update.c: 
  * 
  * Developed by Gustavo Bacagine       <gustavo.bacagine@protonmail.com>
  *              Lucas Pereira de Matos <lucas.pereira.matos.000@gmail.com>

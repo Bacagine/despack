@@ -1,4 +1,8 @@
-/* uninstall.c: 
+/* GitHub:
+ * 
+ * Copyright (C) 2020
+ * 
+ * uninstall.c: 
  * 
  * Developed by Gustavo Bacagine <gustavo.bacagine@protonmail.com>
  * 
@@ -10,5 +14,6 @@
 #include "../include/package.h"
 
 int uninstall(const char *pkg_name){
+    
     return OK;
 }

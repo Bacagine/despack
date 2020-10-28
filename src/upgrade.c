@@ -1,4 +1,8 @@
-/* upgrade.c: 
+/* GitHub: 
+ * 
+ * Copyright (C) 2020
+ * 
+ * upgrade.c: Upgrade one package
  * 
  * Development by Gustavo Bcagine <gustavo.bacagine@protonmail.com>
  * 
@@ -10,5 +14,7 @@
 #include "../include/package.h"
 
 int upgrade(const char *pkg_name){
+    uninstall(pkg_name);
+    install(repository, pkg_name);
     return OK;
 }

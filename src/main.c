@@ -1,8 +1,10 @@
-/* GitHub: 
+/* GitHub: https://github.com/Bacagine/despack/src/main.c
  * 
  * Copyright (C) 2020
  * 
- * Main file of despack package manager
+ * main.c: Main file of despack package manager
+ * 
+ * Developed by Gustavo Bacagine <gustavo.bacagine@protonmail.com>
  * 
  * Begin's date: 20/07/2020
  * Date of last modification: 26/10/2020
@@ -20,6 +22,9 @@ int main(int argc, char **argv){
     else if(argc == 2){
         if(!strcmp(argv[1], "update")){
             update();
+        }
+        else if(!strcmp(argv[1], "upgrade")){
+            full_upgrade();
         }
         else if(!strcmp(argv[1], "-v") || !strcmp(argv[1], "--version")){
             print(VERSION);
@@ -48,8 +53,7 @@ int main(int argc, char **argv){
         }
         /* Upgrade a package */
         else if(!strcmp(argv[1], "upgrade")){
-            //uninstall(argv[2]);
-            //install(repository, argv[2]);
+            upgrade(argv[2]);
         }
         /* Unpack the package on diretorio atual */
         else if(!strcmp(argv[1], "-x") || !strcmp(argv[1], "--extract")){
@@ -89,8 +93,8 @@ int main(int argc, char **argv){
     }
     else if(argc == 4){
         /* Create a package */
-        if(!strcmp(argv[1], "-c") || !strcmp(argv[1], "--compact")){
-            //compactar(argv[2], argv[3]);
+        if(!strcmp(argv[1], "-c") || !strcmp(argv[1], "--compress")){
+            //compress(argv[2], argv[3]);
         }
         else if(!strcmp(argv[1], "download")){
             char *pack = (char *) malloc(sizeof(char) * 26);

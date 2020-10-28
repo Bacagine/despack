@@ -1,5 +1,14 @@
-/* Date of begin: 22/07/2020
- * Date of last modification: 26/10/2020 */
+/* GitHub: https://github.com/Bacagine/despack/src/install_process.c
+ * 
+ * Copyright (C) 2020
+ * 
+ * install_process.c: Instaling process for a package
+ * 
+ * Developed by Gustavo Bacagine <gustavo.bacagine@protonmail.com>
+ * 
+ * Date of begin: 22/07/2020
+ * Date of last modification: 26/10/2020
+ */
 
 #include <string.h>
 #include <fatec/fatec.h>

@@ -1,4 +1,8 @@
-/* install.c: 
+/* GitHub:
+ * 
+ * Copyright (C) 2020
+ * 
+ * install.c: A simple package installation on user's system
  * 
  * Developed by Gustavo Bacagine <gustavo.bacagine@protonmail.com>
  * 

@@ -1,5 +1,13 @@
-/* Data: 10/08/2020
- * Data da ultima modificação: 26/10/2020 */
+/* GitHub: 
+ * 
+ * Copyright (C) 2020
+ * 
+ * verify_instalation.c: 
+ * 
+ * Developed by Gustavo Bacagine <gustavo.bacagine@gmail.com>
+ * 
+ * Begin's date: 10/08/2020
+ * Date of last modification: 26/10/2020 */
 
 #include <stdio.h>
 #include <string.h>

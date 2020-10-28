@@ -2,10 +2,9 @@
  * 
  * Copyright (C) 2020
  * 
- * list.c: 
+ * list_packages.c: Show the package list installed on user's system
  * 
  * Developed Gustavo Bacagine <gustavo.bacagine@protonmail.com>
- * 
  * 
  * Begin's date: 22/07/2020
  * Date of last modification: 26/10/2020

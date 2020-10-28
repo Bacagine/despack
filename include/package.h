@@ -24,7 +24,7 @@
 #define NAME       "despack"
 
 /* Version of package manager */
-#define VERSION    "despack 20.10.26"
+#define VERSION    "despack 20.10.26v2"
 
 /* Message for help the user */
 #define HELP       "Usage: despack [options] command\n\
@@ -212,9 +212,10 @@ void get_date_time(int *day, int *month,
 /* Verify the package extension
  * passed with parameter
  * 
- * Return IS_TAR_BZ if the package is tar.bz2,
- * return IS_TAR_XZ if the package is tar.xz,
- * or return IS_TAR_GZ if the package is tar.gz */
+ * Return IS_TAR_BZ if the package is .tar.bz2,
+ * return IS_TAR_XZ if the package is .tar.xz,
+ * return IS_TAR_GZ if the package is .tar.gz
+ * or return IS_ZIP if the package is .zip */
 int verify_package(const char *pack);
 
 /* Upgrade one package passed

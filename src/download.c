@@ -1,14 +1,13 @@
-/* GitHub: https://github.com/Bacagine/despack
+/* GitHub: https://github.com/Bacagine/despack/src/download.c
  * 
- * download.c: Archive with function for download
- * package.
+ * download.c: Archive with function for download package.
  * 
- * Developers: Gustavo Bacagine <gustavo.bacagine@protonmail.com>
+ * Copyright (C) 2020
  * 
+ * Developed by: Gustavo Bacagine       <gustavo.bacagine@protonmail.com>
+ *               Lucas Pereira de Matos <lucas.pereira.matos.000@gmail.com>
  * 
- * 
- * 
- * Date of begin: 20/07/2020
+ * Begin's date: 20/07/2020
  * Data of last modification: 26/10/2020
  */
 

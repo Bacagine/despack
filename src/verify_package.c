@@ -1,4 +1,12 @@
-/* 
+/* GitHub: 
+ * 
+ * Copyright (C) 2020
+ * 
+ * verify_package.c: Verify if a package is installed on
+ * user's system.
+ * 
+ * Developed by Gustavo Bacagine <gustavo.bacagine@gmail.com>
+ * 
  * Begin's data: 09/08/2020
  * Date of last modification: 26/10/2020
  */

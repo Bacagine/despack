@@ -1,4 +1,12 @@
-/* Date of creation: 22/07/2020
+/* GitHub: 
+ * 
+ * Copyright (C) 2020
+ * 
+ * compile.c: 
+ * 
+ * Developed by Gustavo Bacagine <gustavo.bacagine@gmail.com>
+ * 
+ * Date of creation: 22/07/2020
  * Date of last modification: 26/10/2020 */
 
 #include <string.h>

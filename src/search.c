@@ -1,4 +1,8 @@
-/* search.c: 
+/* GitHub: 
+ * 
+ * Copyright (C) 2020
+ * 
+ * search.c: search a package on repository list
  * 
  * Development by Gustavo Bacagine <gustavo.bacagine@protonmail.com>
  * 

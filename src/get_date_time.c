@@ -1,4 +1,11 @@
-/* get_date_time: get date and time of system
+/* GitHub: 
+ * 
+ * Copyright (C) 2020
+ * 
+ * get_date_time.c: get date and time of system
+ * 
+ * Developed by Gustavo Bacagine <gustavo.bacagine@gmail.com>
+ * 
  * Date of creation: 08/17/2020 */
 
 #include "../include/package.h"
