@@ -1,4 +1,4 @@
-/* GitHub: 
+/* GitHub: https://github.com/Bacagine/despack/src/update.c
  * 
  * COpyright (C) 2020
  * 
@@ -14,7 +14,8 @@
 #include "../include/package.h"
 
 void update(void){
-    /* New list to be downloaded */
+    /* New list to be
+     * downloaded */
     FILE *new_list;
     
     /* Backup of the actual list */
@@ -23,6 +24,7 @@ void update(void){
     CURL *curl;
     CURLcode res;
     curl = curl_easy_init();
+    
     /* Install the new list */
     if(curl){
         new_list = fopen(PKG_LIST, "w");

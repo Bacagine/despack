@@ -1,4 +1,4 @@
-/* GitHub: 
+/* GitHub: https://github.com/Bacagine/despack/src/unpack.c
  * 
  * Copyright (C) 2020
  * 
@@ -7,7 +7,8 @@
  * Developed by Gustavo Bacagine <gustavo.bacagine@gmail.com>
  * 
  * Begin's date: 22/07/2020
- * Date of last modification: 26/10/2020 */
+ * Date of last modification: 30/10/2020
+ */
 
 #include <string.h>
 #include "../include/package.h"
@@ -89,5 +90,5 @@ int unpack(const char *pkg_downloaded, const char *pkg_despack){
         system(command);
     }
     free(command);
-    return OK;
+    return EXIT_SUCCESS;
 }

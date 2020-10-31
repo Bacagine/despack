@@ -7,16 +7,17 @@
  * Developed by Gustavo Bacagine <gustavo.bacagine@protonmail.com>
  * 
  * Begin's date: 20/07/2020
- * Date of last modification: 26/10/2020
+ * Date of last modification: 30/10/2020
  */
 
 #include <stdio.h>
-#include <fatec/fatec.h>
+#include <string.h>
+//#include <fatec/fatec.h>
 #include "../include/package.h"
 
 int main(int argc, char **argv){
     if(argc == 1){
-        fprintf(stderr, "Error: You don't pass arguments!\nUse: %s [options] <package_name>\n", argv[0]);
+        fprintf(stderr, "Error: You don't pass arguments!\nUse: %s [options] <package_name>\n", NAME);
         return ARG_ERR;
     }
     else if(argc == 2){
@@ -27,11 +28,11 @@ int main(int argc, char **argv){
             full_upgrade();
         }
         else if(!strcmp(argv[1], "-v") || !strcmp(argv[1], "--version")){
-            print(VERSION);
+            puts(VERSION);
         }
         else if(!strcmp(argv[1], "-h") || !strcmp(argv[1], "--help")){
-            print(VERSION);
-            print(HELP);
+            puts(VERSION);
+            puts(HELP);
         }/*
         else if(!strcmp(argv[1], "-dev") || !strcmp(argv[1], "--developers")){
             // Nome dos desenvolvedores
@@ -45,6 +46,9 @@ int main(int argc, char **argv){
     else if(argc == 3){
         /* Install the package on system */
         if(!strcmp(argv[1], "-i") || !strcmp(argv[1], "install")){
+            //install(argv[3]);
+        }
+        else if(!strcmp(argv[1], "install-src")){
             install_process(argv[2]);
         }
         /* Remove the package of system */
@@ -61,7 +65,7 @@ int main(int argc, char **argv){
             
             /* Verify if memory allocation is possible */
             if(dest == NULL){
-                fprint(stderr, NO_MEMORY);
+                fprintf(stderr, NO_MEMORY);
                 return MEM_ERR;
             }
             
@@ -78,7 +82,7 @@ int main(int argc, char **argv){
             
             /* Verify if memory allocation is possible */
             if(pack == NULL || pkg_downloaded == NULL || pkg_despack == NULL){
-                fprint(stderr, NO_MEMORY);
+                fprintf(stderr, NO_MEMORY);
                 return MEM_ERR;
             }
             
@@ -102,7 +106,7 @@ int main(int argc, char **argv){
             
             /* Verify if memory allocation is possible */
             if(pack == NULL || pkg_downloaded == NULL){
-                fprint(stderr, NO_MEMORY);
+                fprintf(stderr, NO_MEMORY);
                 return MEM_ERR;
             }
             
@@ -116,8 +120,8 @@ int main(int argc, char **argv){
         }
     }
     else{
-        fprint(stderr, "Error: Ivalid arguments!");
+        fprintf(stderr, "Error: Ivalid arguments!");
         return ARG_ERR;
     }
-    return OK;
+    return EXIT_SUCCESS;
 }

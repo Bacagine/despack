@@ -8,23 +8,23 @@
  *             Lucas Pereira de Matos <lucas.pereira.matos.000@gmail.com>
  * 
  * Begin's date: 20/07/2020
- * Date of last modification: 26/10/2020
+ * Date of last modification: 30/10/2020
  */
 
 #ifndef _PACKAGE_H
 #define _PACKAGE_H
 
 #include <stdlib.h>
-#include <time.h>
+//#include <arpa/inet.h>
 #include <curl/curl.h>
 //#include <libtar.h>
-#include <fatec/date.h>
+//#include <fatec/date.h>
 
 /* Name of package manager */
 #define NAME       "despack"
 
 /* Version of package manager */
-#define VERSION    "despack 20.10.26v2"
+#define VERSION    "despack 20.10.30"
 
 /* Message for help the user */
 #define HELP       "Usage: despack [options] command\n\
@@ -68,6 +68,10 @@ students of FATEC Caraicuíba.\n"
  * be unpacked for compilation */
 #define PKG_SRC    "/usr/src/"
 
+/* Directory where the binary
+ * package is installed */
+#define BIN_DIR    "/usr/bin"
+
 /* Packages repository */
 #define repository "https://www.despack.github.io/packages/"
 
@@ -92,16 +96,14 @@ students of FATEC Caraicuíba.\n"
 /*
  * RETURN VALUES
  * --------------
- * Default error        -1 -> Anithing error
- * Ok                    0 -> Everthing rigth
- * Installed package     1 -> The package is installed on system with sucess
+ * Installed package     2 -> The package is installed on system with sucess
  * 
  * Files
  * ---------
- * is a zip file         2 -> zip     package
- * is a tar.gz file      3 -> tar.gz  package
- * is a tar.xz file      4 -> tar.xz  package
- * is a tar.bz2 file     5 -> tar.bz2 package
+ * is a zip file         3 -> zip     package
+ * is a tar.gz file      4 -> tar.gz  package
+ * is a tar.xz file      5 -> tar.xz  package
+ * is a tar.bz2 file     6 -> tar.bz2 package
  * 
  * Erros values
  * ------------
@@ -110,10 +112,18 @@ students of FATEC Caraicuíba.\n"
  * No package           35 -> Package not found
  * Memory error        525 -> When not enough memory to carry out the memory allocation
  */
-enum RETURN_VALUES{ DEFAULT_ERR = -1, OK, INSTALLED_PKG,
-                    IS_ZIP, IS_TAR_GZ, IS_TAR_XZ, IS_TAR_BZ,
-                    ARG_ERR = 22, FILE_ERR = 25, NO_PACK = 35, MEM_ERR = 525 };
+enum RETURN_VALUES{ INSTALLED_PKG = 2, IS_ZIP, IS_TAR_GZ,
+                    IS_TAR_XZ, IS_TAR_BZ, ARG_ERR = 22,
+                    FILE_ERR = 25, NO_PACK = 35, MEM_ERR = 525 };
 
+/* Structure that represent
+ * a date of package's instalation*/
+typedef struct{
+    int day;
+    int month;
+    int year;
+} date;
+                    
 /* Structure that represent
  * a instalation time of package */
 typedef struct{
@@ -198,12 +208,12 @@ int search(const char *pkg_name);
  * 
  * Receive as 1st parameter the directory name and 
  * the name of package as 2nd parameter */
-void compress(const char *folder, char *pack);
+int compress(const char *folder, char *pack);
 
 /* We took this function in: https://code-examples.net/en/q/18f7ed */
 size_t write_data(void *ptr, size_t size, size_t nmeb, FILE *stream);
 
-/* Get the day and the hour in that the package
+/* Get the date and the hour in that the package
  * was installed */
 void get_date_time(int *day, int *month,
                    int *year, int *hour,

@@ -1,4 +1,4 @@
-/* GitHub: 
+/* GitHub: https://github.com/Bacagine/despack/src/register_package.c
  * 
  * Copyright (C) 2020
  * 
@@ -7,9 +7,9 @@
  * Developed by Gustavo Bacagine <gustavo.bacagine@gmail.com>
  * 
  * Date of begin: 22/07/2020
- * Date of last modification: 26/10/2020 */
+ * Date of last modification: 30/10/2020
+ */
 
-#include <fatec/fatec.h>
 #include "../include/package.h"
 
 int register_package(package *pkg){
@@ -29,5 +29,5 @@ int register_package(package *pkg){
     /* Write packeage on list */
     fwrite(pkg, sizeof(package), 1, installed_list);
     
-    return OK;
+    return EXIT_SUCCESS;
 }

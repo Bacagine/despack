@@ -1,4 +1,4 @@
-/* GitHub: 
+/* GitHub: https://github.com/Bacagine/despack/src/compile.c
  * 
  * Copyright (C) 2020
  * 
@@ -6,8 +6,9 @@
  * 
  * Developed by Gustavo Bacagine <gustavo.bacagine@gmail.com>
  * 
- * Date of creation: 22/07/2020
- * Date of last modification: 26/10/2020 */
+ * Begin's date: 22/07/2020
+ * Date of last modification: 30/10/2020
+ */
 
 #include <string.h>
 #include "../include/package.h"
@@ -57,5 +58,5 @@ int compile(char *pkg_src){
     free(config);
     free(src);
     
-    return OK;
+    return EXIT_SUCCESS;
 }

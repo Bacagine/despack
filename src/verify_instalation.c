@@ -1,4 +1,4 @@
-/* GitHub: 
+/* GitHub: https://github.com/Bacagine/despack/src/verify_instalation.c
  * 
  * Copyright (C) 2020
  * 
@@ -7,7 +7,8 @@
  * Developed by Gustavo Bacagine <gustavo.bacagine@gmail.com>
  * 
  * Begin's date: 10/08/2020
- * Date of last modification: 26/10/2020 */
+ * Date of last modification: 30/10/2020
+ */
 
 #include <stdio.h>
 #include <string.h>
@@ -24,17 +25,17 @@ int verify_instalation(const char *pkg_name){
         return MEM_ERR;
     }
     
-    strcpy(pack, "/usr/bin/");
+    strcpy(pack, BIN_DIR);
     strcat(pack, pkg_name);
     
     /* Verify if the package is installed on system */
     if((prog = fopen(pack, "rb")) == NULL){
-        return DEFAULT_ERR;
+        return EXIT_FAILURE;
     }
     
     fclose(prog);
     
     free(pack);
     
-    return OK;
+    return EXIT_SUCCESS;
 }

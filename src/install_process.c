@@ -6,12 +6,12 @@
  * 
  * Developed by Gustavo Bacagine <gustavo.bacagine@protonmail.com>
  * 
- * Date of begin: 22/07/2020
- * Date of last modification: 26/10/2020
+ * Begin's date: 22/07/2020
+ * Date of last modification: 30/10/2020
  */
 
 #include <string.h>
-#include <fatec/fatec.h>
+//#include <fatec/fatec.h>
 #include "../include/package.h"
 
 int install_process(const char *pkg_name){
@@ -29,7 +29,7 @@ int install_process(const char *pkg_name){
     /* Verify if memory allocation is possible */
     if(pkg == NULL || pack == NULL || pkg_downloaded == NULL ||
        pkg_despack == NULL || pkg_src == NULL){
-        fprint(stderr, NO_MEMORY);
+        fprintf(stderr, NO_MEMORY);
         return MEM_ERR;
     }
     
@@ -80,7 +80,7 @@ int install_process(const char *pkg_name){
     }
     else{
         fprintf(stderr, "Error: Nao foi possivel instalar o programa: %s!\n", pkg->name);
-        return DEFAULT_ERR;
+        return EXIT_FAILURE;
     }
     
     /* Free the memory
@@ -92,5 +92,5 @@ int install_process(const char *pkg_name){
     free(pack);
     free(pkg);
     
-    return OK;
+    return EXIT_SUCCESS;
 }

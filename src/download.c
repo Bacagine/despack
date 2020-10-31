@@ -8,7 +8,7 @@
  *               Lucas Pereira de Matos <lucas.pereira.matos.000@gmail.com>
  * 
  * Begin's date: 20/07/2020
- * Data of last modification: 26/10/2020
+ * Data of last modification: 30/10/2020
  */
 
 #include <stdio.h>
@@ -126,5 +126,5 @@ int download(const char *pkg_name, char *pack, char *pkg_downloaded, char *pkg_d
     free(aux);
     free(line);
     
-    return OK;
+    return EXIT_SUCCESS;
 }

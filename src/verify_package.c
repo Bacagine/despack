@@ -1,4 +1,4 @@
-/* GitHub: 
+/* GitHub: https://github.com/Bacagine/despack/src/verify_package.c
  * 
  * Copyright (C) 2020
  * 
@@ -27,7 +27,7 @@ int verify_package(const char *pack){
     
     len = strlen(pack);
     
-    /* Pegando a extensão do pacote */
+    /* Taking the package extension */
     for(int count = len-3; count < len; count++){
         strcpy(extension, &pack[count]);
     }

@@ -1,4 +1,4 @@
-/* GitHub: 
+/* GitHub: https://github.com/Bacagine/despack/src/get_date_time.c
  * 
  * Copyright (C) 2020
  * 
@@ -8,7 +8,7 @@
  * 
  * Date of creation: 08/17/2020 */
 
-#include "../include/package.h"
+#include <time.h>
 
 void
 get_date_time(int *day, int *month,

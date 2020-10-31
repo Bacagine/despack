@@ -3,7 +3,7 @@
 # Copyright (C) 2020
 # 
 # Begin's date: 10/08/2020
-# Date of last modification: 26/10/2020
+# Date of last modification: 30/10/2020
 
 TARGET = despack
 SRCDIR = src
@@ -11,14 +11,16 @@ INCDIR = include
 OBJDIR = obj
 BINDIR = bin
 SRC    = $(wildcard $(SRCDIR)/*.c)
-INC    = -I $(INCDIR)
+INC    = -Idir $(INCDIR)
 OBJ    = $(addprefix $(OBJDIR)/,main.o install_process.o download.o \
-                                unpack.o compile.o register_package.o \
-                                list_packages.o update.o verify_instalation.o get_date_time.o \
-                                search.o uninstall.o install.o upgrade.o verify_package.o)
+                                unpack.o compile.o verify_instalation.o \
+                                register_package.o list_packages.o install.o \
+                                uninstall.o update.o search.o compress.o \
+                                get_date_time.o verify_package.o upgrade.o \
+                                full_upgrade.o)
 BIN    = $(BINDIR)/$(TARGET)
-CC     = gcc
-CFLAGS = -lcurl -lfatec
+CC     = tcc
+CFLAGS = -lcurl
 
 all: $(OBJDIR) $(BINDIR) $(BIN)
 
@@ -60,6 +62,8 @@ $(OBJDIR)/verify_package.o: $(SRCDIR)/verify_package.c $(INCDIR)/package.h
 	$(CC) -c $< -o $@
 $(OBJDIR)/upgrade.o: $(SRCDIR)/upgrade.c $(INCDIR)/package.h
 	$(CC) -c $< -o $@
+$(OBJDIR)/full_upgrade.o: $(SRCDIR)/full_upgrade.c $(INCDIR)/package.h
+	$(CC) -c $< -o $@
 run: all
 	@$(BIN)
 #install: all
@@ -73,7 +77,7 @@ run: all
 #	rm /usr/share/man/man8/despack.8.gz
 #	rm /usr/sbin/despack
 clean:
-	rm -rf $(OBJ)
+	rm -rf $(OBJDIR)
 mrproper: clean
 	rm -rf $(BINDIR)
 	rm -rf $(OBJDIR)

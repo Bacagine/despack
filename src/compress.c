@@ -1,4 +1,4 @@
-/* GitHub: 
+/* GitHub: https://github.com/Bacagine/despack/src/compress.c
  * 
  * Copyright (C) 2020
  * 
@@ -7,11 +7,13 @@
  * Development by Gustavo Bcagine <gustavo.bacagine@protonmail.com>
  * 
  * Begin's date: 24/10/2020 
+ * Date of last modification: 30/10/2020
  */
 
 #include <stdio.h>
 #include "../include/package.h"
 
-void compress(const char *folder, char *pack){
+int compress(const char *folder, char *pack){
     
+    return EXIT_SUCCESS;
 }
