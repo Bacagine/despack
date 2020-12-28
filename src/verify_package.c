@@ -34,14 +34,17 @@ int verify_package(const char *pack){
     
     if(!strcmp(extension, "bz2")){
         free(extension);
+		extension = NULL;
         return IS_TAR_BZ;
     }
     else if(!strcmp(extension, ".xz")){
         free(extension);
+		extension = NULL;
         return IS_TAR_XZ;
     }
     else if(!strcmp(extension, ".gz")){
         free(extension);
+		extension = NULL;
         return IS_TAR_GZ;
     }
 }

@@ -40,6 +40,10 @@ int list_packages(void){
                                                                                 pkg->tm_instalacao.second);
     }
     fprintf(stdout, "**********************************************************\n");
-    free(pkg);
-    return EXIT_SUCCESS;
+    
+	free(pkg);
+
+    pkg = NULL;
+
+	return EXIT_SUCCESS;
 }

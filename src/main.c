@@ -72,6 +72,7 @@ int main(int argc, char **argv){
             unpack(argv[2], dest);
             
             free(dest);
+			dest = NULL;
         }
         /* Download of package on directory /usr/share/despack/packages */
         else if(!strcmp(argv[1], "download")){
@@ -93,6 +94,10 @@ int main(int argc, char **argv){
             free(pack);
             free(pkg_downloaded);
             free(pkg_despack);
+
+			pack = NULL;
+			pgk_downloaded = NULL;
+			pkg_despack = NULL;
         }
     }
     else if(argc == 4){

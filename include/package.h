@@ -8,7 +8,7 @@
  *             Lucas Pereira de Matos <lucas.pereira.matos.000@gmail.com>
  * 
  * Begin's date: 20/07/2020
- * Date of last modification: 30/10/2020
+ * Date of last modification: 28/12/2020
  */
 
 #ifndef _PACKAGE_H
@@ -24,7 +24,7 @@
 #define NAME       "despack"
 
 /* Version of package manager */
-#define VERSION    "despack 20.10.30"
+#define VERSION    "despack 20.12.28"
 
 /* Message for help the user */
 #define HELP       "Usage: despack [options] command\n\

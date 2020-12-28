@@ -90,5 +90,8 @@ int unpack(const char *pkg_downloaded, const char *pkg_despack){
         system(command);
     }
     free(command);
-    return EXIT_SUCCESS;
+    
+	command = NULL;
+	
+	return EXIT_SUCCESS;
 }

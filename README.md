@@ -1,5 +1,7 @@
 # Despack
 
+Package manager for linux
+
 ## Download and Install
 `git clone https://github.com/Bacagine/despack.git`
 

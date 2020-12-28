@@ -58,5 +58,8 @@ int compile(char *pkg_src){
     free(config);
     free(src);
     
+	config = NULL;
+	src = NULL;
+
     return EXIT_SUCCESS;
 }

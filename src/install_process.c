@@ -92,5 +92,11 @@ int install_process(const char *pkg_name){
     free(pack);
     free(pkg);
     
+	pkg_src = NULL;
+	pkg_despack = NULL;
+	pkg_downloaded = NULL;
+	pack = NULL;
+	pkg = NULL;
+
     return EXIT_SUCCESS;
 }

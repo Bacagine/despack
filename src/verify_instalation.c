@@ -36,6 +36,8 @@ int verify_instalation(const char *pkg_name){
     fclose(prog);
     
     free(pack);
+
+	pack = NULL;
     
     return EXIT_SUCCESS;
 }

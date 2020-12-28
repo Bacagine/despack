@@ -126,5 +126,8 @@ int download(const char *pkg_name, char *pack, char *pkg_downloaded, char *pkg_d
     free(aux);
     free(line);
     
+	aux = NULL;
+	line = NULL;
+
     return EXIT_SUCCESS;
 }
