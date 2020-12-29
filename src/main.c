@@ -7,7 +7,7 @@
  * Developed by Gustavo Bacagine <gustavo.bacagine@protonmail.com>
  * 
  * Begin's date: 20/07/2020
- * Date of last modification: 30/10/2020
+ * Date of last modification: 29/12/2020
  */
 
 #include <stdio.h>
@@ -96,7 +96,7 @@ int main(int argc, char **argv){
             free(pkg_despack);
 
 			pack = NULL;
-			pgk_downloaded = NULL;
+			pkg_downloaded = NULL;
 			pkg_despack = NULL;
         }
     }

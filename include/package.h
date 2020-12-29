@@ -24,7 +24,7 @@
 #define NAME       "despack"
 
 /* Version of package manager */
-#define VERSION    "despack 20.12.28"
+#define VERSION    "despack 20.12.29"
 
 /* Message for help the user */
 #define HELP       "Usage: despack [options] command\n\
